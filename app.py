@@ -6,7 +6,7 @@ import yfinance as yf
 
 from dateutil.relativedelta import relativedelta
 
-st.title("5 years Monthly anomalies")
+st.title("5 years Monthly anomalies(mean)")
 codelist = st.multiselect(
     'Symbols@Yahoo Finance! US',
     ['2501.T', '2502.T', '2503.T'],
@@ -19,7 +19,7 @@ try:
   df = yf.download(codelist, start=start_D, end=end_D, interval='1mo')["Adj Close"]
   print(df)
 
-  df_analyse=df.pct_change().dropna().groupby([lambda x: x.month]).sum()
+  df_analyse=df.pct_change().dropna().groupby([lambda x: x.month]).mean()
   print(df_analyse)
 
   fig, ax = plt.subplots()
@@ -27,3 +27,4 @@ try:
   st.pyplot(fig)
   st.dataframe(df_analyse.T)
 except:
+  st.write("データエラーのため表示できません")    
