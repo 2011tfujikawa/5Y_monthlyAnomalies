@@ -21,5 +21,7 @@ print(df)
 df_analyse=df.pct_change().dropna().groupby([lambda x: x.month]).sum()
 print(df_analyse)
 
-st.bar_chart(df_analyse)
+fig, ax = plt.subplots()
+df_analyse.plot.bar(ax=ax)
+st.pyplot(fig)
 st.dataframe(df_analyse.T)
