@@ -26,4 +26,4 @@ try:
   df_analyse.plot.bar(ax=ax)
   st.pyplot(fig)
   st.dataframe(df_analyse.T)
-exception:
+except:
