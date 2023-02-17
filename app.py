@@ -15,13 +15,15 @@ codelist = st.multiselect(
 end_D = datetime.date.today()
 start_D = datetime.date.today() - relativedelta(years=5)
 
-df = yf.download(codelist, start=start_D, end=end_D, interval='1mo')["Adj Close"]
-print(df)
+try:
+  df = yf.download(codelist, start=start_D, end=end_D, interval='1mo')["Adj Close"]
+  print(df)
 
-df_analyse=df.pct_change().dropna().groupby([lambda x: x.month]).sum()
-print(df_analyse)
+  df_analyse=df.pct_change().dropna().groupby([lambda x: x.month]).sum()
+  print(df_analyse)
 
-fig, ax = plt.subplots()
-df_analyse.plot.bar(ax=ax)
-st.pyplot(fig)
-st.dataframe(df_analyse.T)
+  fig, ax = plt.subplots()
+  df_analyse.plot.bar(ax=ax)
+  st.pyplot(fig)
+  st.dataframe(df_analyse.T)
+exception:
